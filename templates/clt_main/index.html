@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-
+<div class="info">
 <form method="post">
     <label for="draws">Number of draws</label>
     <select name="draws" id="draws">
@@ -21,8 +21,67 @@
     <input type="submit">
 </form>
 
-<h3> Number of draws:</h3>
-<p> {{ draws }} </p>
-<h3> Number of samples:</h3>
-<p> {{ samples }}</p>
+<p> <strong>Number of draws:</strong> {{ draws }} </p>
+
+<p> <strong>Number of samples:</strong> {{ samples }} </p>
+
+</div>
+<div class="chart">
+    <canvas id="myChart" width="400" height="400"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+let requestURL = "/static/data.json";
+let request = new XMLHttpRequest();
+request.open('GET', requestURL);
+request.responseType = 'json'
+request.send();
+
+request.onload = function() {
+    const get_data = request.response;
+    extract_data(get_data);
+}
+
+function extract_data(obj) {
+    sum_data = obj['sum']
+    count_data = obj['count']
+
+    const ctx = document.getElementById('myChart');
+
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: sum_data,
+            datasets: [{
+                label: 'Sum',
+                data: count_data,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+fruits = ['Apple','Banana','Orange','Pear','Peach']
+frequency = [24,32,11,30,17]
+
+both = [fruits,frequency]
+
+
+
+</script>
 {% endblock %}

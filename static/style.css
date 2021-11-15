@@ -1,0 +1,14 @@
+body{
+    margin: 25px;
+}
+h1 {
+    text-align: center;
+}
+.info {
+    text-align: center;
+}
+.chart {
+    width: 600px;
+    height: 600px;
+    margin: auto;
+}
