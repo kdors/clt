@@ -3,22 +3,25 @@
 {% block body %}
 <div class="info">
 <form method="post">
-    <label for="draws">Number of draws</label>
+    <label for="draws">Number of draws: </label>
     <select name="draws" id="draws">
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-    </select>
-
-    <label for="samples">Number of samples</label>
-    <select name="samples" id="samples">
         <option value="25">25</option>
         <option value="50">50</option>
         <option value="100">100</option>
         <option value="200">200</option>
     </select>
-
-    <input type="submit">
+    <br>
+    <br>
+    <label for="samples">Number of samples: </label>
+    <select name="samples" id="samples">
+        <option value="500">500</option>
+        <option value="1000">1000</option>
+        <option value="5000">5000</option>
+        <option value="10000">10000</option>
+    </select>
+    <br>
+    <br>
+    <input type="submit" value="Submit">
 </form>
 
 <p> <strong>Number of draws:</strong> {{ draws }} </p>
@@ -55,7 +58,7 @@ function extract_data(obj) {
         data: {
             labels: sum_data,
             datasets: [{
-                label: 'Sum',
+                label: 'Count',
                 data: count_data,
                 backgroundColor: [
                     'rgba(75, 192, 192, 0.2)',
