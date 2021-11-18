@@ -2,31 +2,31 @@
 
 {% block body %}
 <div class="info">
-<form method="post">
-    <label for="draws">Number of draws: </label>
-    <select name="draws" id="draws">
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
-    </select>
-    <br>
-    <br>
-    <label for="samples">Number of samples: </label>
-    <select name="samples" id="samples">
-        <option value="500">500</option>
-        <option value="1000">1000</option>
-        <option value="5000">5000</option>
-        <option value="10000">10000</option>
-    </select>
-    <br>
-    <br>
-    <input type="submit" value="Submit">
-</form>
+    <h2>Choose Draw and Trial Size</h2>
+    <form method="post">
+        <label for="draws">Number of draws: </label>
+        <select name="draws" id="draws">
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+        </select>
+        <br>
+        <br>
+        <label for="trials">Number of trials: </label>
+        <select name="trials" id="trials">
+            <option value="100">100</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+            <option value="5000">5000</option>
+            <option value="10000">10000</option>
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
 
-<p> <strong>Number of draws:</strong> {{ draws }} </p>
-
-<p> <strong>Number of samples:</strong> {{ samples }} </p>
+    <p> <strong>Number of draws:</strong> {{ draws }}; <strong>Number of trials:</strong> {{ trials }} </p>
 
 </div>
 <div class="chart">
@@ -36,22 +36,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 
+// create a request to retrieve JSON
 let requestURL = "/static/data.json";
 let request = new XMLHttpRequest();
-request.open('GET', requestURL);
-request.responseType = 'json'
+request.open("GET", requestURL);
+request.responseType = "json"
 request.send();
-
+// wait for response from server 
 request.onload = function() {
     const get_data = request.response;
     extract_data(get_data);
 }
-
+// get the data from the JSON file and use it to create a bar chart
 function extract_data(obj) {
-    sum_data = obj['sum']
-    count_data = obj['count']
-
-    const ctx = document.getElementById('myChart');
+    let sum_data = obj["sum"]
+    let count_data = obj["count"]
+    // get the chart element by its id
+    const ctx = document.getElementById("myChart");
 
     const myChart = new Chart(ctx, {
         type: 'bar',
@@ -78,11 +79,6 @@ function extract_data(obj) {
         }
     });
 }
-
-fruits = ['Apple','Banana','Orange','Pear','Peach']
-frequency = [24,32,11,30,17]
-
-both = [fruits,frequency]
 
 
 

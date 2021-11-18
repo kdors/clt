@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Visualizing CLT</title>
+        <title>Visualizing CLT for Sums</title>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
     </head>
     <body>
-        <h1>Visualizing CLT</h1>
+        <h1>Visualizing the Central Limit Theorem for Sums</h1>
+        <div class="intro">
+            <p>   
+                Using a box model, summing up a number of draws taken randomly with replacement will eventually follow
+                the normal distribution, regardless of what the box looks like, as the number of draws taken increases.
+                The box model used for the calculations is shown below. Each number has an equal likely chance of being
+                drawn from the box.
+            </p>
+            <img src="static/box_model.png" alt="Box model [1,2,3,4,5,6]">
+            <p>
+                The expected value of the sum of the draws is the average of the box multiplied by the number of draws. 
+                The standard error of the sum of the draws is the standard deviation of the box multiplied by the square root
+                of the number of draws. Below, you can choose the number of draws you want to take and the number of
+                trials you want to do. As the number of draws increases, and at a good trial size, the data begins to closely 
+                resemble the normal probability distribution.
+            </p>
+            <p>Try it for yourself!</p>
+        </div>
         {% block body%}
         {% endblock %}
     </body>
+    <footer>
+        <hr style="border-top: 1px dotted gray;">
+        <p>View Code on <a href="https://github.com/kdors/clt" target="_blank">Github</a></p>
+    </footer>
 </html>
